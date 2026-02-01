@@ -1,3 +1,6 @@
+import CardMesh from "@/components/card-mesh/card-mesh";
+import HeroMesh from "@/components/hero-mesh/hero-mesh";
+
 type Project = {
   name: string;
   description: string;
@@ -42,28 +45,44 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-6 py-16 sm:px-8 sm:py-24">
         {/* Hero Section */}
-        <header className="mb-16 flex flex-col items-center text-center sm:items-start sm:text-left">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-600 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-500 opacity-75 dark:bg-amber-400" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500 dark:bg-amber-400" />
-            </span>
-            In Development
+        <header className="relative mb-16 overflow-hidden rounded-2xl border border-zinc-200/50 p-8 dark:border-zinc-800/50 sm:p-12">
+          {/* Low-poly SVG background */}
+          <HeroMesh />
+
+          {/* Readability overlay */}
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-zinc-50/90 via-zinc-50/70 to-zinc-50/90 dark:from-black/80 dark:via-black/60 dark:to-black/80" />
+
+          {/* Hero content */}
+          <div className="relative z-10 flex flex-col items-center text-center sm:items-start sm:text-left">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-600 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-500 opacity-75 dark:bg-amber-400" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500 dark:bg-amber-400" />
+              </span>
+              In Development
+            </div>
+
+            <p className="mb-2 text-xl font-medium text-zinc-700 dark:text-zinc-300">
+              Hey there!
+            </p>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-medium text-zinc-700 dark:text-zinc-300">I am</span>
+              <h1 className="mb-4 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+                Serhii Buriak
+              </h1>
+            </div>
+
+            <p className="mb-2 text-xl font-medium text-zinc-700 dark:text-zinc-300">
+              Full-Cycle Developer
+            </p>
+
+            <p className="max-w-lg text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+              Building modern web experiences with TypeScript, Next.js, and Node.js.
+              From scratch to production through all stages of the development and devops process.
+              This website is currently under construction — check back soon for the full experience.
+            </p>
           </div>
-
-          <h1 className="mb-4 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-            Serhii Buriak
-          </h1>
-
-          <p className="mb-2 text-xl font-medium text-zinc-700 dark:text-zinc-300">
-            Full-Cycle Developer
-          </p>
-
-          <p className="max-w-lg text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-            Building modern web experiences with TypeScript, Next.js, and Node.js.
-            From scratch to production through all stages of the development and devops process.
-            This portfolio is currently under construction — check back soon for the full experience.
-          </p>
         </header>
 
         {/* Projects Section */}
@@ -76,46 +95,55 @@ export default function Home() {
             {projects.map(project => (
               <article
                 key={project.name}
-                className="flex flex-col rounded-xl border border-zinc-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
+                className="relative flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white p-6 transition-shadow hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"
               >
-                <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                  {project.name}
-                </h3>
+                {/* Cyberpunk low-poly background */}
+                <CardMesh />
 
-                <p className="mb-4 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                  {project.description}
-                </p>
+                {/* Readability overlay */}
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/80 via-white/70 to-white/80 dark:from-zinc-900/75 dark:via-zinc-900/65 dark:to-zinc-900/75" />
 
-                <div className="mb-4 flex flex-wrap gap-2">
-                  {project.tags.map(tag => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                {/* Card content */}
+                <div className="relative z-10">
+                  <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                    {project.name}
+                  </h3>
 
-                <div className="flex gap-4 text-sm font-medium">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-zinc-700 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-300 dark:hover:text-zinc-100"
-                  >
-                    GitHub
-                  </a>
-                  {project.live && (
+                  <p className="mb-4 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {project.description}
+                  </p>
+
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {project.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-zinc-100/80 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800/80 dark:text-zinc-300"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-4 text-sm font-medium">
                     <a
-                      href={project.live}
+                      href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-zinc-700 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-300 dark:hover:text-zinc-100"
                     >
-                      Live Demo
+                      GitHub
                     </a>
-                  )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-zinc-700 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-300 dark:hover:text-zinc-100"
+                      >
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
                 </div>
               </article>
             ))}
@@ -130,6 +158,9 @@ export default function Home() {
         </p>
         <p className="text-center text-sm text-zinc-500 dark:text-zinc-500">
           Serhii Buriak © 2026
+        </p>
+        <p className="px-4 text-sm text-zinc-500 dark:text-zinc-500">
+          ver. 0.2.1
         </p>
       </footer>
     </div>
