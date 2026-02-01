@@ -45,7 +45,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-6 py-16 sm:px-8 sm:py-24">
         {/* Hero Section */}
-        <header className="relative mb-16 overflow-hidden rounded-2xl border border-zinc-200/50 p-8 dark:border-zinc-800/50 sm:p-12">
+        <header className="relative mb-16 overflow-hidden rounded-4xl corner-bevel border border-zinc-200/50 p-8 dark:border-zinc-800/50 sm:p-12">
           {/* Low-poly SVG background */}
           <HeroMesh />
 
@@ -66,7 +66,7 @@ export default function Home() {
               Hey there!
             </p>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
               <span className="text-xl font-medium text-zinc-700 dark:text-zinc-300">I am</span>
               <h1 className="mb-4 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
                 Serhii Buriak
@@ -95,7 +95,7 @@ export default function Home() {
             {projects.map(project => (
               <article
                 key={project.name}
-                className="relative flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white p-6 transition-shadow hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"
+                className="relative flex flex-col overflow-hidden rounded-2xl corner-bevel border border-zinc-200 bg-white p-6 transition-shadow hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"
               >
                 {/* Cyberpunk low-poly background */}
                 <CardMesh />
@@ -154,7 +154,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-zinc-200 py-8 dark:border-zinc-800">
         <p className="text-center text-sm text-zinc-500 dark:text-zinc-500">
-          UI/UX will be updated to match the thebeet style. Stay tuned.
+          UI/UX will be updated to match thebeet style. Stay tuned.
         </p>
         <p className="text-center text-sm text-zinc-500 dark:text-zinc-500">
           Serhii Buriak © 2026
