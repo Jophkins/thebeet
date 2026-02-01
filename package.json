@@ -2,6 +2,7 @@
   "name": "thebeet",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.28.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -24,6 +25,7 @@
     "eslint": "^9.39.2",
     "eslint-config-next": "16.1.6",
     "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
