@@ -8,7 +8,7 @@ function CardMesh() {
   const cellW = w / cols;
   const cellH = h / rows;
   // Cyberpunk palette: purple, cyan, magenta, deep violet
-  const colors = ["#7c3aed", "#06b6d4", "#c026d3", "#4c1d95", "#0e7490", "#9333ea"];
+  const colors = ["#ff2a6d", "#d1f7ff", "#05d9e8", "#005678", "#01012b", "#9333ea"];
 
   const triangles: React.ReactElement[] = [];
   for (let row = 0; row < rows; row++) {
@@ -39,7 +39,7 @@ function CardMesh() {
   return (
     <svg
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.25] dark:opacity-[0.20]"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.35] dark:opacity-[0.30]"
       preserveAspectRatio="xMidYMid slice"
       viewBox={`0 0 ${w} ${h}`}
     >
