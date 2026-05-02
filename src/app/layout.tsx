@@ -20,10 +20,10 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 const SITE_DESCRIPTION
-  = "Alex Beetson — fullstack developer building small, fast, honest software. Mostly TypeScript and Go, with a soft spot for Postgres, local-first patterns, and dev tools that feel handmade.";
+  = "Serhii Buriak — fullstack developer building small, fast, honest software. Mostly TypeScript and Go, with a soft spot for Postgres, local-first patterns, and dev tools that feel handmade.";
 
 export const metadata: Metadata = {
-  title: "thebeet.dev — Alex Beetson, fullstack developer",
+  title: "thebeet.dev — Serhii Buriak, fullstack developer",
   description: SITE_DESCRIPTION,
   robots: {
     index: false,
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "profile",
-    title: "thebeet.dev — Alex Beetson, fullstack developer",
+    title: "thebeet.dev — Serhii Buriak, fullstack developer",
     description: SITE_DESCRIPTION,
     siteName: "thebeet.dev",
   },
   twitter: {
     card: "summary",
-    title: "thebeet.dev — Alex Beetson",
+    title: "thebeet.dev — Serhii Buriak",
     description: SITE_DESCRIPTION,
   },
 };
@@ -47,13 +47,13 @@ const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');i
 const PERSON_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "Alex Beetson",
+  "name": "Serhii Buriak",
   "jobTitle": "Fullstack developer",
   "url": "https://thebeet.dev",
-  "email": "mailto:hello@thebeet.dev",
+  "email": "mailto:serhiiburiak19@gmail.com",
   "sameAs": [
-    "https://github.com/thebeet",
-    "https://hachyderm.io/@thebeet",
+    "https://github.com/thedarkbeet",
+    "https://hachyderm.io/@thedarkbeet",
   ],
 };
 
