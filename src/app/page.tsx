@@ -1,247 +1,292 @@
-import Image from "next/image";
+import type { Project } from "@/components/project-item/project-item";
 
-import CardMesh from "@/components/card-mesh/card-mesh";
+import ProjectItem from "@/components/project-item/project-item";
+import SiteHeader from "@/components/site-header/site-header";
 
-type Project = {
-  name: string;
-  description: string;
-  tags: string[];
-  github: string;
-  live: string | null;
+type StackGroup = {
+  label: string;
+  items: string[];
 };
 
-const projects: Project[] = [
+type WorkEntry = {
+  period: string;
+  title: string;
+  company: string;
+  description: string;
+  location: string;
+};
+
+type ContactLink = {
+  label: string;
+  value: string;
+  href: string;
+};
+
+const STACK_GROUPS: StackGroup[] = [
   {
-    name: "beetForge",
-    description: "A full-stack Gamified goal & habit tracker web application built with modern technologies.",
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Supabase"],
-    github: "https://github.com/Jophkins/beetforge",
-    live: "https://beetforge.thebeet.dev",
+    label: "frontend",
+    items: ["ts", "react", "next", "tailwind", "css"],
   },
   {
-    name: "BeetCinema backend",
-    description: "A backend side for the beetcinema web application for ticket booking and management. Built with modern technologies. Movie ticketing system.",
-    tags: ["Node.js", "Next.js", "PostgreSQL", "gRPC"],
-    github: "https://github.com/beetcinema/backend",
-    live: "https://thebeet.dev/beetcinema",
+    label: "backend",
+    items: ["node", "postgres", "redis", "graphql", "rest", "prisma"],
   },
   {
-    name: "LastShoot",
-    description: "Simple and minimalistic photo gallery web application for your photos.",
-    tags: ["Next.js", "PWA", "Firebase"],
-    github: "https://github.com/Jophkins/lastshoot",
-    live: "https://thebeet.dev/lastshoot",
+    label: "infra",
+    items: ["docker", "aws", "cloudflare", "linux", "nginx"],
   },
   {
-    name: "TimeFlow",
-    description: "Pomodoro timer with customizable settings and spotify/youtube integration.",
-    tags: ["Next.js", "TypeScript", "PostgreSQL"],
-    github: "https://github.com/Jophkins/timeflow",
-    live: "https://thebeet.dev/timeflow",
+    label: "craft",
+    items: ["vim", "claude", "git", "agents"],
   },
+];
+
+const WORK_ENTRIES: WorkEntry[] = [
+  {
+    period: "2024 — now",
+    title: "Fullstack Engineer",
+    company: "Terrabrief Solutions",
+    description: "Running several company websites. Maintaining and integrating dashboards and internal tools.",
+    location: "remote",
+  },
+  {
+    period: "2023 — 24",
+    title: "Fullstack Engineer",
+    company: "PathwayPro",
+    description: "Maintained and reworked social-network platform for foreign workers. ",
+    location: "Calgary / CAN",
+  },
+  {
+    period: "2021 — 23",
+    title: "Lead Fullstack Engineer",
+    company: "Glimmity-Buterfly",
+    description: "Developed company website from scratch for inside employees. Onboarded new employees. Became a technical lead. Run the company's dev team.",
+    location: "Poltava / UKR",
+  },
+  {
+    period: "2020 — 21",
+    title: "Frontend Engineer",
+    company: "Almaz web studio",
+    description: "Build and support company website and landing pages.",
+    location: "remote",
+  },
+  {
+    period: "2014 - 20",
+    title: "Student and part-time technician",
+    company: "Legion, MTX computers, Kyivstar",
+    description: "Computer Science student and part-time network technician",
+    location: "Donetsk, Kyiv, Poltava",
+  },
+];
+
+const PROJECTS: Project[] = [
+  {
+    year: "2025",
+    name: "kettle-sql",
+    blurb: "Streaming SQL for humans.",
+    description: "A single-binary streaming SQL engine you can point at a Kafka topic, an HTTP feed, or a file. Pipes-friendly. Used by a few teams to skip 80% of a Flink setup. Open source, Go.",
+    stack: ["Go", "PostgreSQL", "Kafka", "protobuf"],
+    role: "Sole author",
+    links: [
+      { label: "github.com/thebeet/kettle", href: "https://github.com/thebeet/kettle" },
+      { label: "kettle-sql.dev", href: "https://kettle-sql.dev" },
+    ],
+  },
+  {
+    year: "2024",
+    name: "mica",
+    blurb: "Local-first notes that sync without a server.",
+    description: "Notes app built on CRDTs, with end-to-end encryption and direct peer sync. Web + iOS. Currently hovers around 2k MAU; was a #1 launch on Hacker News.",
+    stack: ["TypeScript", "Svelte", "Rust (wasm)", "Yjs"],
+    role: "Designer + lead engineer",
+    links: [
+      { label: "mica.app", href: "https://mica.app" },
+      { label: "github.com/thebeet/mica", href: "https://github.com/thebeet/mica" },
+    ],
+  },
+  {
+    year: "2024",
+    name: "tinhat",
+    blurb: "Encrypted, expiring link shortener.",
+    description: "Short links with a passphrase, one-shot reads, and zero metadata logs. Self-hostable in 30s. Built as a weekend project, now used by ~200 small teams.",
+    stack: ["Go", "Cloudflare Workers", "SQLite"],
+    role: "Sole author",
+    links: [
+      { label: "tinhat.link", href: "https://tinhat.link" },
+      { label: "github.com/thebeet/tinhat", href: "https://github.com/thebeet/tinhat" },
+    ],
+  },
+  {
+    year: "2023",
+    name: "doughboy",
+    blurb: "Variable-font playground for pasta typography.",
+    description: "A WASM-based font playground I made for fun and for a magazine commission. Lets you generate variable letterforms shaped like pasta cuts.",
+    stack: ["Rust (wasm)", "Canvas", "HarfBuzz"],
+    role: "Solo experiment",
+    links: [
+      { label: "doughboy.lol", href: "https://doughboy.lol" },
+    ],
+  },
+  {
+    year: "2023",
+    name: "arboretum",
+    blurb: "Personal metrics, plotted as a tree.",
+    description: "A self-hosted little app that turns your daily quantified-self data (sleep, runs, mood) into a slowly growing tree visualization. Mostly for me; a handful of friends use it.",
+    stack: ["TypeScript", "Astro", "D3", "PostgreSQL"],
+    role: "Solo",
+    links: [
+      { label: "github.com/thebeet/arboretum", href: "https://github.com/thebeet/arboretum" },
+    ],
+  },
+];
+
+const CONTACT_LINKS: ContactLink[] = [
+  { label: "github", value: "github.com/thedarkbeet", href: "https://github.com/thedarkbeet" },
+  { label: "email", value: "serhiiburiak19@gmail.com", href: "mailto:serhiiburiak19@gmail.com" },
+  { label: "cv", value: "/cv.pdf", href: "/cv.pdf" },
+  { label: "mastodon", value: "@thebeet@hachyderm.io", href: "https://hachyderm.io/@thebeet" },
+];
+
+const ABOUT_PARAGRAPHS = [
+  "I’m a full-cycle developer with 7 years of experience in software development and 5 years in commercial projects.",
+  "I build products end to end — from interfaces and frontend architecture to backend systems, infrastructure, deployment, and long-term maintainability. My experience includes both working independently across the full development cycle and collaborating within engineering teams.",
+  "My strongest interest is where frontend, backend, and infrastructure meet. I care about quality, long-term maintainability, and building products that are not only functional today, but ready to evolve tomorrow.",
+  "Outside of work, I’m into longboarding, coffee, piano, and small engineering experiments with LEGO, Arduino, and Raspberry Pi computers.",
 ];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-6 py-16 sm:px-8 sm:py-24">
-        {/* In Development badge - above Hero */}
-        <div className="mb-6 flex justify-center sm:justify-start">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-600 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-500 opacity-75 dark:bg-amber-400" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500 dark:bg-amber-400" />
-            </span>
-            In Development
-          </div>
+    <>
+      <a className="hf-skip-link" href="#main">Skip to content</a>
+
+      <div className="hf-shell" id="top">
+        <SiteHeader />
+
+        <div className="hf-meta-mobile">
+          <span>Serhii Buriak (Seth)</span>
+          <span aria-hidden="true"> · </span>
+          <span>Fullstack developer</span>
+          <span aria-hidden="true"> · </span>
+          <span>Calgary · remote / NA</span>
+          <span aria-hidden="true"> · </span>
+          <span className="hf-meta-mobile-status">
+            <span aria-hidden="true" className="hf-status-dot" />
+            open to work
+          </span>
         </div>
 
-        {/* Hero ID Card */}
-        <header className="group relative mb-16 overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-lg shadow-zinc-200/50 transition-all duration-300 hover:shadow-xl hover:shadow-zinc-300/50 dark:border-zinc-800/80 dark:bg-zinc-900 dark:shadow-zinc-950/50 dark:hover:shadow-zinc-900/80 sm:p-8">
-          {/* Gradient accent at top */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-emerald-500 to-cyan-500 opacity-80" />
-
-          {/* ID Card header */}
-          <div className="mb-6 flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
-              ID Card
-            </span>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-600 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-400">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 dark:bg-emerald-400" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
-                </span>
-                Active
-              </div>
-              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 font-mono text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                SB-2026
-              </span>
+        <div className="hf-grid">
+          <aside className="hf-meta">
+            <div className="hf-meta-name">Serhii Buriak (Seth)</div>
+            <div className="hf-meta-line">Fullstack developer</div>
+            <div className="hf-meta-line">Calgary · remote / NA</div>
+            <div className="hf-meta-spacer" />
+            <div className="hf-meta-status">
+              <span aria-hidden="true" className="hf-status-dot" />
+              open to work
             </div>
-          </div>
+          </aside>
 
-          {/* Main content grid */}
-          <div className="grid items-center gap-8 sm:grid-cols-[auto_1fr] sm:gap-10">
-            {/* Avatar */}
-            <div className="flex justify-center sm:justify-start">
-              <div className="overflow-hidden rounded-2xl border-2 border-zinc-100 bg-zinc-50 shadow-lg dark:border-zinc-800 dark:bg-zinc-800">
-                <Image
-                  src="/avatar.png"
-                  alt="Serhii Buriak avatar"
-                  width={200}
-                  height={200}
-                  className="h-auto w-36 sm:w-48"
-                  priority
-                />
-              </div>
-            </div>
-
-            {/* Info */}
-            <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
-              <h1 className="mb-1 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-                Serhii Buriak
+          <main className="hf-main" id="main">
+            <section className="hf-hero hf-fade-in">
+              <h1 className="hf-h1">
+                I build
+                {" "}
+                <em>small, fast, honest</em>
+                {" "}
+                software — mostly with TypeScript and Go.
               </h1>
-              <p className="mb-4 text-lg text-zinc-500 dark:text-zinc-400">
-                Full‑Cycle Engineer
+              <p className="hf-hero-intro">
+                I&apos;m a fullstack developer who builds small, fast, honest software. Mostly TypeScript and Go, with a soft spot for Postgres, local-first patterns, and dev tools that feel handmade.
               </p>
+            </section>
 
-              <p className="mb-6 max-w-lg text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-                Building modern web experiences with TypeScript, Next.js, and Node.js. From
-                scratch to production through all stages of the development and devops process.
-                This website is currently under construction — check back soon for the full
-                experience.
-              </p>
+            <section className="hf-section" id="about">
+              <div className="hf-section-label">01 · ABOUT</div>
+              {ABOUT_PARAGRAPHS.map((paragraph, index) => (
+                <p className="hf-paragraph" key={index}>
+                  {paragraph}
+                </p>
+              ))}
+            </section>
 
-              {/* Info blocks */}
-              <div className="mb-5 grid w-full max-w-md grid-cols-2 gap-3 sm:grid-cols-3">
-                <div className="rounded-xl bg-zinc-50 px-4 py-3 text-center dark:bg-zinc-800/60">
-                  <div className="text-[10px] font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-                    Status
+            <section className="hf-section" id="stack">
+              <div className="hf-section-label">02 · STACK</div>
+              <div className="hf-stack">
+                {STACK_GROUPS.map(group => (
+                  <div className="hf-stack-row" key={group.label}>
+                    <div className="hf-stack-label">{group.label}</div>
+                    <div className="hf-stack-items">
+                      {group.items.map((item, index) => (
+                        <span className="hf-stack-item" key={item}>
+                          {item}
+                          {index < group.items.length - 1 && (
+                            <span aria-hidden="true" className="hf-stack-sep">·</span>
+                          )}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                    Engineer
-                  </div>
-                </div>
-                <div className="rounded-xl bg-zinc-50 px-4 py-3 text-center dark:bg-zinc-800/60">
-                  <div className="text-[10px] font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-                    Base
-                  </div>
-                  <div className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                    Canada
-                  </div>
-                </div>
-                <div className="col-span-2 rounded-xl bg-zinc-50 px-4 py-3 text-center sm:col-span-1 dark:bg-zinc-800/60">
-                  <div className="text-[10px] font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-                    Focus
-                  </div>
-                  <div className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                    Web Apps
-                  </div>
-                </div>
-              </div>
-
-              {/* Stack tags */}
-              <div className="flex flex-wrap justify-center gap-2 sm:justify-start">
-                {["TypeScript", "Next.js", "Node.js", "PostgreSQL"].map(tag => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
-                  >
-                    {tag}
-                  </span>
                 ))}
               </div>
-            </div>
-          </div>
+            </section>
 
-          {/* Footer */}
-          <div className="mt-6 flex items-center justify-between border-t border-zinc-100 pt-4 text-xs text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
-            <span className="font-mono">thebeet.dev</span>
-            <span>Issued 2019</span>
-          </div>
-        </header>
-
-        {/* Projects Section */}
-        <section className="mb-16">
-          <h2 className="mb-8 text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-            Projects
-          </h2>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            {projects.map(project => (
-              <article
-                key={project.name}
-                className="group relative flex flex-col overflow-hidden rounded-2xl corner-bevel bg-white p-6 dark:bg-zinc-900"
-              >
-                {/* Cyan border with glow effect */}
-                <div className="pointer-events-none absolute inset-0 rounded-2xl border border-cyan-500/40 transition-all duration-300 group-hover:border-cyan-400/80 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.6),inset_0_0_15px_rgba(6,182,212,0.4)]" />
-
-                {/* Cyberpunk low-poly background */}
-                <CardMesh />
-
-                {/* Readability overlay */}
-                <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/80 via-white/70 to-white/80 dark:from-zinc-900/75 dark:via-zinc-900/65 dark:to-zinc-900/75" />
-
-                {/* Card content */}
-                <div className="relative z-10">
-                  <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-                    {project.name}
-                  </h3>
-
-                  <p className="mb-4 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                    {project.description}
-                  </p>
-
-                  <div className="mb-4 flex flex-wrap gap-2">
-                    {project.tags.map(tag => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-zinc-100/80 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800/80 dark:text-zinc-300"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+            <section className="hf-section" id="work">
+              <div className="hf-section-label">03 · WORK</div>
+              <div className="hf-work">
+                {WORK_ENTRIES.map(entry => (
+                  <div className="hf-work-row" key={`${entry.period}-${entry.company}`}>
+                    <div className="hf-work-period">{entry.period}</div>
+                    <div className="hf-work-body">
+                      <div className="hf-work-title">
+                        {entry.title}
+                        ,
+                        {" "}
+                        <em>{entry.company}</em>
+                      </div>
+                      <div className="hf-work-description">{entry.description}</div>
+                      <div className="hf-work-location">{entry.location}</div>
+                    </div>
                   </div>
+                ))}
+              </div>
+            </section>
 
-                  <div className="flex gap-4 text-sm font-medium">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-zinc-700 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-300 dark:hover:text-zinc-100"
-                    >
-                      GitHub
-                    </a>
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-zinc-700 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-300 dark:hover:text-zinc-100"
-                      >
-                        Live
+            <section className="hf-section" id="projects">
+              <div className="hf-section-label">04 · PROJECTS</div>
+              <div className="hf-projects">
+                {PROJECTS.map(project => (
+                  <ProjectItem key={project.name} project={project} />
+                ))}
+              </div>
+            </section>
+
+            <section className="hf-section" id="contact">
+              <div className="hf-section-label">05 · CONTACT</div>
+              <p className="hf-contact-intro">
+                Email is the fastest way to reach me. Cold-mail welcome.
+              </p>
+              <div className="hf-contact-list">
+                {CONTACT_LINKS.map(link => (
+                  <div className="hf-contact-row" key={link.label}>
+                    <div className="hf-contact-label">{link.label}</div>
+                    <div className="hf-contact-value">
+                      <a className="hf-link" href={link.href}>
+                        {link.value}
                       </a>
-                    )}
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      </main>
+                ))}
+              </div>
+            </section>
 
-      {/* Footer */}
-      <footer className="border-t border-zinc-200 py-8 dark:border-zinc-800">
-        <p className="text-center text-sm text-zinc-500 dark:text-zinc-500">
-          UI/UX will be updated to match thebeet style. Stay tuned.
-        </p>
-        <p className="text-center text-sm text-zinc-500 dark:text-zinc-500">
-          Serhii Buriak © 2026
-        </p>
-        <p className="px-4 text-sm text-zinc-500 dark:text-zinc-500">
-          ver. 0.2.1
-        </p>
-      </footer>
-    </div>
+            <footer className="hf-footer">
+              <span>© 2026 Serhii Buriak</span>
+              <span>built in a terminal · last commit 2d</span>
+            </footer>
+          </main>
+        </div>
+      </div>
+    </>
   );
 }
